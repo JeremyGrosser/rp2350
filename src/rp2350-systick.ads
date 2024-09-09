@@ -6,7 +6,7 @@
 package RP2350.SysTick
    with Preelaborate, SPARK_Mode => On
 is
-   Ticks_Per_Second : constant := 1_000;
+   Ticks_Per_Second : constant := 100;
 
    type Time is mod 2 ** 32;
 

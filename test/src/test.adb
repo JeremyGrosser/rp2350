@@ -9,12 +9,14 @@ procedure Test is
    T : Timer.Time;
 begin
    IO_BANK0.GPIO (25).CTRL.FUNCSEL := 5;
+   SIO.GPIO_OE_SET (25) := True;
+   PADS_BANK0.GPIO (25).ISO := False;
 
    Timer.Enable;
    Timer.Get_Clock (T);
    loop
       SIO.GPIO_OUT_XOR (25) := True;
-      T := T + Timer.Milliseconds (100);
+      T := T + Timer.Milliseconds (2000);
       Timer.Delay_Until (T);
    end loop;
 end Test;

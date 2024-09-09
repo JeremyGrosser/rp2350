@@ -27,11 +27,18 @@ project Test is
       for Artifacts (".") use ("share");
    end Install;
 
+   Extra_Linker_Switches := ();
+   case Test_Config.Build_Profile is
+      when "release" =>
+         Extra_Linker_Switches := ("-Wl,-gc-sections");
+      when others =>
+         null;
+   end case;
+
    package Linker is
       for Switches ("Ada") use RP2350.Linker_Switches & (
-         "-Wl,-print-memory-usage",
-         "-Wl,-gc-sections"
-      );
+         "-Wl,-print-memory-usage"
+      ) & Extra_Linker_Switches;
    end Linker;
 
 end Test;

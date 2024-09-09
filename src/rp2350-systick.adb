@@ -41,16 +41,32 @@ package body RP2350.SysTick is
       VALUE at 0 range 0 .. 23;
    end record;
 
+   type SYST_CALIB_Register is record
+      NOREF : Boolean;
+      SKEW  : Boolean;
+      TENMS : UInt24;
+   end record
+      with Volatile_Full_Access,
+           Async_Writers,
+           Object_Size => 32;
+   for SYST_CALIB_Register use record
+      NOREF at 0 range 31 .. 31;
+      SKEW  at 0 range 30 .. 30;
+      TENMS at 0 range 0 .. 23;
+   end record;
+
    type SYST_Peripheral is record
-      CSR : SYST_CSR_Register;
-      RVR : SYST_Value_Register;
-      CVR : SYST_Value_Register;
+      CSR   : SYST_CSR_Register;
+      RVR   : SYST_Value_Register;
+      CVR   : SYST_Value_Register;
+      CALIB : SYST_CALIB_Register;
    end record
       with Volatile;
    for SYST_Peripheral use record
-      CSR at 16#10# range 0 .. 31;
-      RVR at 16#14# range 0 .. 31;
-      CVR at 16#18# range 0 .. 31;
+      CSR   at 16#10# range 0 .. 31;
+      RVR   at 16#14# range 0 .. 31;
+      CVR   at 16#18# range 0 .. 31;
+      CALIB at 16#1C# range 0 .. 31;
    end record;
 
    SYST : SYST_Peripheral
@@ -97,11 +113,10 @@ package body RP2350.SysTick is
    end SysTick_Handler;
 
    procedure Enable is
-      Tick_Generator_Frequency : constant := 1_000_000;
    begin
       SYST.CSR.ENABLE := False;
       SYST.CSR.CLKSOURCE := True;
-      SYST.RVR.VALUE := UInt24 (Tick_Generator_Frequency / Ticks_Per_Second - 1);
+      SYST.RVR.VALUE := SYST.CALIB.TENMS;
       SYST.CVR.VALUE := 0;
       SYST.CSR.TICKINT := True;
       SYST.CSR.ENABLE := True;
