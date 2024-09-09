@@ -1,0 +1,24 @@
+name = "test"
+description = ""
+version = "0.1.0-dev"
+
+authors = ["Jeremy Grosser"]
+maintainers = ["Jeremy Grosser <jeremy@synack.me>"]
+maintainers-logins = ["JeremyGrosser"]
+licenses = "BSD-3-Clause"
+website = ""
+tags = []
+
+executables = ["test"]
+
+[[depends-on]]
+rp2350 = "*"
+
+[[pins]]
+rp2350 = { path='..' }
+
+[[depends-on]]
+gnatprove = "^14.1.1"
+
+[[depends-on]]
+gnat_arm_elf = "^14.2.1"
