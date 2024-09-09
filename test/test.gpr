@@ -29,7 +29,8 @@ project Test is
 
    package Linker is
       for Switches ("Ada") use RP2350.Linker_Switches & (
-         "-Wl,-print-memory-usage"
+         "-Wl,-print-memory-usage",
+         "-Wl,-gc-sections"
       );
    end Linker;
 

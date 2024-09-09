@@ -97,10 +97,11 @@ package body RP2350.SysTick is
    end SysTick_Handler;
 
    procedure Enable is
+      Tick_Generator_Frequency : constant := 1_000_000;
    begin
       SYST.CSR.ENABLE := False;
-      SYST.CSR.CLKSOURCE := True; --  Reference clock
-      SYST.RVR.VALUE := UInt24 (1_000);
+      SYST.CSR.CLKSOURCE := True;
+      SYST.RVR.VALUE := UInt24 (Tick_Generator_Frequency / Ticks_Per_Second - 1);
       SYST.CVR.VALUE := 0;
       SYST.CSR.TICKINT := True;
       SYST.CSR.ENABLE := True;

@@ -1,6 +1,8 @@
 with "config/rp2350_config.gpr";
 project Rp2350 is
 
+   for Languages use ("Ada", "Asm_Cpp");
+
    for Library_Name use "Rp2350";
    for Library_Version use Project'Library_Name & ".so." & Rp2350_Config.Crate_Version;
 
