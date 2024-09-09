@@ -15,7 +15,8 @@ is
 
    function Milliseconds
       (Ms : Natural)
-      return Time;
+      return Time
+   with Inline;
 
    procedure Delay_Until
       (T : Time)

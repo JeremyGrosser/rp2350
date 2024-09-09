@@ -13,15 +13,11 @@ executables = ["test"]
 
 [[depends-on]]
 rp2350 = "*"
+gnat_arm_elf = "^14.2.1"
+gnatprove = "^14.1.1"
 
 [[pins]]
 rp2350 = { path='..' }
-
-[[depends-on]]
-gnatprove = "^14.1.1"
-
-[[depends-on]]
-gnat_arm_elf = "^14.2.1"
 
 [build-switches]
 release.optimization = ["-Os", "-gnatn2", "-gnatp"]

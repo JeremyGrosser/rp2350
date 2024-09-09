@@ -87,7 +87,7 @@ package body RP2350.SysTick is
    end Delay_Until;
 
    procedure SysTick_Handler
-      with Export, Convention => C, External_Name => "SysTick_Handler",
+      with Export, Convention => C, External_Name => "isr_systick",
            SPARK_Mode => Off;
 
    procedure SysTick_Handler is
