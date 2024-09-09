@@ -21,3 +21,7 @@ rp2350 = { path='..' }
 
 [build-switches]
 release.optimization = ["-Os", "-gnatn2", "-gnatp"]
+
+[[actions]]
+type = "post-build"
+command = ["gnatprove", "--mode=all", "--warnings=off"]

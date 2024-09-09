@@ -19,8 +19,7 @@ is
    with Inline;
 
    procedure Delay_Until
-      (T : Time)
-   with SPARK_Mode => Off;
+      (T : Time);
 
    procedure Enable;
 
