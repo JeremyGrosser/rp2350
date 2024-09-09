@@ -1,15 +1,16 @@
-with RP2350.IO_BANK;
-with RP2350.SIO;
-with System;
+with RP2350.Device; use RP2350.Device;
+with RP2350.SysTick; use RP2350.SysTick;
 
 procedure Test is
-   SIO : RP2350.SIO.SIO_Peripheral
-      with Import, Address => System'To_Address (16#D000_0000#);
-   IO_BANK0 : RP2350.IO_BANK.IO_BANK_Peripheral
-      with Import, Address => System'To_Address (16#4002_8000#);
+   T : Time;
 begin
    IO_BANK0.GPIO (25).CTRL.FUNCSEL := 5;
+
+   RP2350.SysTick.Enable;
+   Get_Clock (T);
    loop
       SIO.GPIO_OUT_XOR (25) := True;
+      T := T + Milliseconds (100);
+      Delay_Until (T);
    end loop;
 end Test;

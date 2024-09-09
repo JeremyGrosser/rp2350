@@ -40,6 +40,10 @@ is
       CTRL   : IO_BANK_GPIO_CTRL_Register;
    end record
       with Volatile;
+   for IO_BANK_GPIO_Register use record
+      STATUS at 0 range 0 .. 31;
+      CTRL   at 4 range 0 .. 31;
+   end record;
 
    type IO_BANK_GPIO_Array is array (0 .. 47) of IO_BANK_GPIO_Register
       with Component_Size => 64;
