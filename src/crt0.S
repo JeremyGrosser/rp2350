@@ -562,11 +562,6 @@ data_cpy_table:
 
 
 
-.weak runtime_init
-.type runtime_init,%function
-.thumb_func
-runtime_init:
-    bx lr
 # 525 "rp2_common/pico_crt0/crt0.S"
 .macro spacer_section name
 
