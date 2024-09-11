@@ -37,8 +37,8 @@ begin
        PDE        => True,    --  Pull down (open drain)
        SCHMITT    => True,    --  Schmitt trigger
        SLEWFAST   => False);  --  Slew control
-   NVIC.ICPR0 (RP2350.Interrupts.IO_IRQ_BANK0_NS) := True;
-   NVIC.ISER0 (RP2350.Interrupts.IO_IRQ_BANK0_NS) := True;
+   NVIC.ICPR (RP2350.Interrupts.IO_IRQ_BANK0) := True;
+   NVIC.ISER (RP2350.Interrupts.IO_IRQ_BANK0) := True;
 
    Timer.Enable;
    Timer.Get_Clock (T);
