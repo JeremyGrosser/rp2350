@@ -3,24 +3,50 @@
 --
 --  SPDX-License-Identifier: BSD-3-Clause
 --
+pragma Style_Checks ("M120");
 with RP2350.Device; use RP2350.Device;
+with RP2350.ARM; use RP2350.ARM;
+with RP2350.IO_BANK;
 with RP2350.SysTick;
+with RP2350.Interrupts;
+with Interrupts;
 
 procedure Test is
-   pragma SPARK_Mode (On);
+   pragma SPARK_Mode (Off);
+
    package Timer renames RP2350.SysTick;
    use type Timer.Time;
    T : Timer.Time;
+
+   LED : constant := 25;
+   SIGNAL_IN : constant := 0;
 begin
-   IO_BANK0.GPIO (25).CTRL.FUNCSEL := 5;
-   SIO.GPIO_OE_SET (25) := True;
-   PADS_BANK0.GPIO (25).ISO := False;
+   IO_BANK0.GPIO (LED).CTRL.FUNCSEL := 5;
+   SIO.GPIO_OE_SET (LED) := True;
+   PADS_BANK0.GPIO (LED).ISO := False;
+
+   IO_BANK0.PROC0.INTE (SIGNAL_IN / 6)(SIGNAL_IN mod 6)(RP2350.IO_BANK.EDGE_HIGH) := True;
+   IO_BANK0.GPIO (SIGNAL_IN).CTRL.FUNCSEL := 5;
+   SIO.GPIO_OE_CLR (SIGNAL_IN) := True;
+   PADS_BANK0.GPIO (SIGNAL_IN) :=
+      (ISO        => False,   --  Isolation off
+       OD         => True,    --  Output disable
+       IE         => True,    --  Input enable
+       DRIVE      => 0,       --  No drive
+       PUE        => False,   --  No pull up
+       PDE        => True,    --  Pull down (open drain)
+       SCHMITT    => True,    --  Schmitt trigger
+       SLEWFAST   => False);  --  Slew control
+   NVIC.ICPR0 (RP2350.Interrupts.IO_IRQ_BANK0_NS) := True;
+   NVIC.ISER0 (RP2350.Interrupts.IO_IRQ_BANK0_NS) := True;
 
    Timer.Enable;
    Timer.Get_Clock (T);
    loop
-      SIO.GPIO_OUT_XOR (25) := True;
-      T := T + Timer.Milliseconds (2000);
+      if Interrupts.Triggered > 0 then
+         SIO.GPIO_OUT_XOR (LED) := True;
+      end if;
+      T := T + Timer.Milliseconds (100);
       Timer.Delay_Until (T);
    end loop;
 end Test;

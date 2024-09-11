@@ -6,7 +6,6 @@
 package RP2350.PADS_BANK
    with Pure, SPARK_Mode => On
 is
-
    type GPIO_Register is record
       ISO      : Boolean := True;
       OD       : Boolean := False;
@@ -48,5 +47,4 @@ is
       SWCLK          at 16#C4# range 0 .. 31;
       SWD            at 16#C8# range 0 .. 31;
    end record;
-
 end RP2350.PADS_BANK;
