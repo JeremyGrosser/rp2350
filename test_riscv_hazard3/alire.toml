@@ -1,0 +1,37 @@
+name = "test_riscv"
+description = ""
+version = "0.1.0-dev"
+
+authors = ["Jeremy Grosser"]
+maintainers = ["Jeremy Grosser <jeremy@synack.me>"]
+maintainers-logins = ["JeremyGrosser"]
+licenses = "BSD-3-Clause"
+website = ""
+tags = []
+
+executables = ["test_riscv"]
+
+[[depends-on]]
+gnat_riscv64_elf = "^14"
+rp2350 = "*"
+bare_runtime = "~0.1.0"
+
+[[pins]]
+rp2350 = { path='..' }
+bare_runtime = { url='https://github.com/JeremyGrosser/bare_runtime.git', branch='14.1' }
+
+[gpr-set-externals]
+BARE_RUNTIME_SWITCHES = "-march=rv32imac_zicsr_zifencei_zba_zbb_zbs_zbkb -mabi=ilp32"
+
+[configuration.values]
+rp2350.Target_Arch = "riscv_hazard3"
+
+[build-switches]
+release.optimization = ["-Os", "-gnatn2", "-gnatp"]
+
+#[build-profiles]
+#"*" = "development"
+
+#[[actions]]
+#type = "post-build"
+#command = ["picotool", "uf2", "convert", "bin/test_riscv", "-t", "elf", "bin/test_riscv.uf2"]

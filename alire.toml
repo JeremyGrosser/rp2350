@@ -8,3 +8,7 @@ maintainers-logins = ["JeremyGrosser"]
 licenses = "BSD-3-Clause"
 website = ""
 tags = []
+
+[configuration.variables]
+Target_Arch = {type = "Enum", values = ["arm_m33", "riscv_hazard3"], default = "arm_m33"}
+Flash_Chip = {type = "Enum", values = ["w25q080", "generic_03h"], default = "w25q080"}

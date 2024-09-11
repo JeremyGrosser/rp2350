@@ -1,7 +1,6 @@
 package RP2350.IO_BANK
    with Pure, SPARK_Mode => On
 is
-
    type IO_BANK_GPIO_STATUS_Register is record
       IRQTOPROC   : Boolean;
       INFROMPAD   : Boolean;
@@ -55,5 +54,4 @@ is
    for IO_BANK_Peripheral use record
       GPIO at 0 range 0 .. 3071;
    end record;
-
 end RP2350.IO_BANK;

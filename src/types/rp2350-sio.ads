@@ -1,7 +1,6 @@
 package RP2350.SIO
    with Pure, SPARK_Mode => On
 is
-
    type GPIO_Bit_Array is array (0 .. 47) of Boolean
       with Component_Size => 1, Size => 64;
 
@@ -33,5 +32,4 @@ is
       GPIO_OE_CLR    at 16#40# range 0 .. 63;
       GPIO_OE_XOR    at 16#48# range 0 .. 63;
    end record;
-
 end RP2350.SIO;

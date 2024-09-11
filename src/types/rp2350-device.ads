@@ -6,8 +6,7 @@ with RP2350.WATCHDOG;
 with System;
 
 package RP2350.Device
-   with Preelaborate,
-        SPARK_Mode => On
+   with Preelaborate, SPARK_Mode => On
 is
    SIO : RP2350.SIO.SIO_Peripheral
       with Import, Address => System'To_Address (16#D000_0000#);

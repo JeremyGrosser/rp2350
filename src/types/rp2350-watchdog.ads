@@ -30,5 +30,4 @@ is
    for WATCHDOG_Peripheral use record
       CTRL at 16#00# range 0 .. 31;
    end record;
-
 end RP2350.WATCHDOG;

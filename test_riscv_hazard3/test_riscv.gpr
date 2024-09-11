@@ -1,0 +1,36 @@
+with "config/test_riscv_config.gpr";
+with "rp2350.gpr";
+with "bare_runtime.gpr";
+
+project Test_Riscv is
+
+   for Target use "riscv64-elf";
+   for Runtime ("Ada") use Bare_Runtime'Runtime ("Ada");
+   --  bare_runtime is used because the toolchain's light-rv32* runtimes don't
+   --  enable zicsr, zifencei, etc instructions
+
+   for Source_Dirs use ("src/", "config/");
+   for Object_Dir use "obj/" & Test_Riscv_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
+   for Exec_Dir use "bin";
+   for Main use ("test_riscv.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use Test_Riscv_Config.Ada_Compiler_Switches;
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+   package Install is
+      for Artifacts (".") use ("share");
+   end Install;
+
+   package Linker is
+      for Switches ("Ada") use RP2350.Linker_Switches & (
+         "-Wl,-print-memory-usage"
+      );
+   end Linker;
+
+end Test_Riscv;

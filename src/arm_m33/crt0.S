@@ -518,8 +518,6 @@ platform_entry:
     movs r0, #0
     msr msplim, r0
 
-    //ldr r1, =adainit
-    //blx r1
     ldr r1, =main
     blx r1
 

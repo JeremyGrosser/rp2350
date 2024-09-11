@@ -59,5 +59,4 @@ is
       STARTUP  at 16#0C# range 0 .. 31;
       COUNT    at 16#10# range 0 .. 31;
    end record;
-
 end RP2350.XOSC;
