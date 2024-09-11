@@ -21,8 +21,8 @@ begin
    IO_BANK0.GPIO (LED).CTRL.FUNCSEL := 5;
    IO_BANK0.GPIO (Signal_In).CTRL.FUNCSEL := 5;
 
-   SIO.GPIO_OE_SET := (LED => True, others => False);
-   SIO.GPIO_OE_CLR := (Signal_In => True, others => False);
+   SIO.GPIO_OE_SET (LED) := True;
+   SIO.GPIO_OE_CLR (Signal_In) := True;
 
    PADS_BANK0.GPIO (LED) :=
       (ISO        => False,

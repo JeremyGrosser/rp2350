@@ -7,7 +7,12 @@ package RP2350.SIO
    with Pure, SPARK_Mode => On
 is
    type GPIO_Bit_Array is array (0 .. 47) of Boolean
-      with Component_Size => 1, Size => 64;
+      with Component_Size => 1,
+           Size => 64,
+           Volatile,
+           Effective_Writes,
+           Async_Writers,
+           Async_Readers;
 
    type SIO_Peripheral is record
       CPUID          : UInt32;
