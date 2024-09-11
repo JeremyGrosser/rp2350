@@ -4,6 +4,7 @@
 --  SPDX-License-Identifier: BSD-3-Clause
 --
 pragma Style_Checks ("M120");
+pragma SPARK_Mode (On);
 with RP2350.Device; use RP2350.Device;
 with RP2350.ARM; use RP2350.ARM;
 with RP2350.IO_BANK;
@@ -13,8 +14,6 @@ with Interrupts;
 with Test_Pins; use Test_Pins;
 
 procedure Test is
-   pragma SPARK_Mode (On);
-
    package Timer renames RP2350.SysTick;
    use type Timer.Time;
    T : Timer.Time;
