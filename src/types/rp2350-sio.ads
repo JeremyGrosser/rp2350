@@ -1,3 +1,8 @@
+--
+--  Copyright (C) 2024 Jeremy Grosser <jeremy@synack.me>
+--
+--  SPDX-License-Identifier: BSD-3-Clause
+--
 package RP2350.SIO
    with Pure, SPARK_Mode => On
 is

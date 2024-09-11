@@ -1,3 +1,8 @@
+--
+--  Copyright (C) 2024 Jeremy Grosser <jeremy@synack.me>
+--
+--  SPDX-License-Identifier: BSD-3-Clause
+--
 with RP2350.Device; use RP2350.Device;
 with RP2350.SysTick;
 

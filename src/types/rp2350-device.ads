@@ -1,3 +1,8 @@
+--
+--  Copyright (C) 2024 Jeremy Grosser <jeremy@synack.me>
+--
+--  SPDX-License-Identifier: BSD-3-Clause
+--
 with RP2350.SIO;
 with RP2350.IO_BANK;
 with RP2350.PADS_BANK;
