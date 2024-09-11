@@ -34,7 +34,7 @@ begin
        IE         => True,    --  Input enable
        DRIVE      => 0,       --  No drive
        PUE        => True,    --  Pull up
-       PDE        => False    --  No pull down
+       PDE        => False,   --  No pull down
        SCHMITT    => True,    --  Schmitt trigger
        SLEWFAST   => False);  --  Slew control
    NVIC.ICPR (RP2350.Interrupts.IO_IRQ_BANK0) := True;
