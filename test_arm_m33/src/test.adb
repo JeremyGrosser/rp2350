@@ -10,6 +10,7 @@ with RP2350.IO_BANK;
 with RP2350.SysTick;
 with RP2350.Interrupts;
 with Interrupts;
+with Test_Pins; use Test_Pins;
 
 procedure Test is
    pragma SPARK_Mode (Off);
@@ -17,18 +18,15 @@ procedure Test is
    package Timer renames RP2350.SysTick;
    use type Timer.Time;
    T : Timer.Time;
-
-   LED : constant := 25;
-   SIGNAL_IN : constant := 0;
 begin
    IO_BANK0.GPIO (LED).CTRL.FUNCSEL := 5;
    SIO.GPIO_OE_SET (LED) := True;
    PADS_BANK0.GPIO (LED).ISO := False;
 
-   IO_BANK0.PROC0.INTE (SIGNAL_IN / 6)(SIGNAL_IN mod 6)(RP2350.IO_BANK.EDGE_HIGH) := True;
-   IO_BANK0.GPIO (SIGNAL_IN).CTRL.FUNCSEL := 5;
-   SIO.GPIO_OE_CLR (SIGNAL_IN) := True;
-   PADS_BANK0.GPIO (SIGNAL_IN) :=
+   IO_BANK0.PROC0.INTE (Signal_In / 6)(Signal_In mod 8)(RP2350.IO_BANK.EDGE_HIGH) := True;
+   IO_BANK0.GPIO (Signal_In).CTRL.FUNCSEL := 5;
+   SIO.GPIO_OE_CLR (Signal_In) := True;
+   PADS_BANK0.GPIO (Signal_In) :=
       (ISO        => False,   --  Isolation off
        OD         => True,    --  Output disable
        IE         => True,    --  Input enable
@@ -43,7 +41,7 @@ begin
    Timer.Enable;
    Timer.Get_Clock (T);
    loop
-      if Interrupts.Triggered > 0 then
+      if Interrupts.Triggered mod 10 = 0 then
          SIO.GPIO_OUT_XOR (LED) := True;
       end if;
       T := T + Timer.Milliseconds (100);
