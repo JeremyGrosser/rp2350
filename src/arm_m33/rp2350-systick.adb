@@ -6,7 +6,9 @@
 with System.Machine_Code;
 with System;
 
-package body RP2350.SysTick is
+package body RP2350.SysTick
+   with SPARK_Mode => On
+is
 
    type UInt24 is mod 2 ** 24 with Size => 24;
    type UInt32 is mod 2 ** 32 with Size => 32;
@@ -77,8 +79,7 @@ package body RP2350.SysTick is
    SCB_ICSR : UInt32
       with Import, Address => System'To_Address (16#E000_ED04#);
 
-   Ticks : Time := 0
-      with Volatile, Atomic;
+   Ticks : Time := 0;
 
    procedure Get_Clock
       (T : out Time)
@@ -104,7 +105,8 @@ package body RP2350.SysTick is
 
    procedure SysTick_Handler
       with Export, Convention => C, External_Name => "isr_systick",
-           SPARK_Mode => Off;
+           Global => (In_Out => Ticks,
+                      Output => SCB_ICSR);
 
    procedure SysTick_Handler is
    begin

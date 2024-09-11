@@ -24,7 +24,7 @@ release.optimization = ["-Os", "-gnatn2", "-gnatp"]
 
 [[actions]]
 type = "post-build"
-command = ["gnatprove", "--mode=all", "--warnings=off"]
+command = ["gnatprove", "--mode=all", "--warnings=off", "--output-header"]
 
 [build-profiles]
 "*" = "development"
