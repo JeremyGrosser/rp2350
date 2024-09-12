@@ -12,15 +12,12 @@ tags = []
 executables = ["test"]
 
 [[depends-on]]
-gnat_arm_elf = "^14.2.1"
+gnat_arm_elf = "^14"
+gnatprove = "^14"
 rp2350 = "*"
-gnatprove = "^14.1.1"
 
 [[pins]]
 rp2350 = { path='..' }
-
-[build-switches]
-release.optimization = ["-Os", "-gnatn2", "-gnatp"]
 
 [[actions]]
 type = "post-build"

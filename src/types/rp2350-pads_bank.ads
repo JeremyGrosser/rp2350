@@ -16,10 +16,7 @@ is
       SCHMITT  : Boolean := True;
       SLEWFAST : Boolean := False;
    end record
-      with Volatile_Full_Access,
-           Effective_Writes,
-           Async_Readers,
-           Object_Size => 32;
+      with Object_Size => 32;
    for GPIO_Register use record
       ISO      at 0 range 8 .. 8;
       OD       at 0 range 7 .. 7;

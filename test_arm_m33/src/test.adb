@@ -24,25 +24,8 @@ begin
    SIO.GPIO_OE_SET (LED) := True;
    SIO.GPIO_OE_CLR (Signal_In) := True;
 
-   PADS_BANK0.GPIO (LED) :=
-      (ISO        => False,
-       OD         => False,
-       IE         => False,
-       DRIVE      => 0,
-       PUE        => False,
-       PDE        => True,
-       SCHMITT    => True,
-       SLEWFAST   => False);
-
-   PADS_BANK0.GPIO (Signal_In) :=
-      (ISO        => False,   --  Isolation off
-       OD         => True,    --  Output disable
-       IE         => True,    --  Input enable
-       DRIVE      => 0,       --  2mA drive
-       PUE        => True,    --  Pull up
-       PDE        => False,   --  No pull down
-       SCHMITT    => True,    --  Schmitt trigger
-       SLEWFAST   => False);  --  Slew control
+   PADS_BANK0.GPIO (LED) := Output_Pad;
+   PADS_BANK0.GPIO (Signal_In) := Input_Pad;
 
    IO_BANK0.PROC0.INTE (Signal_In / 6)(Signal_In mod 8)(RP2350.IO_BANK.EDGE_HIGH) := True;
    NVIC.ICPR (RP2350.Interrupts.IO_IRQ_BANK0) := True;
@@ -53,7 +36,7 @@ begin
    Timer.Get_Clock (T);
    loop
       if Interrupts.Is_Triggered then
-         SIO.GPIO_OUT_XOR := (LED => True, others => False);
+         SIO.GPIO_OUT_XOR := LED_Mask;
          Interrupts.Reset;
       end if;
       T := T + Timer.Milliseconds (100);
