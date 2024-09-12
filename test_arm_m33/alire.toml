@@ -24,4 +24,4 @@ type = "post-build"
 command = ["gnatprove", "--mode=all", "--warnings=off", "--output-header"]
 
 [build-profiles]
-"*" = "development"
+"*" = "validation"
