@@ -13,7 +13,8 @@ is
       OUTTOPAD    : Boolean;
    end record
       with Volatile_Full_Access,
-           Async_Writers;
+           Async_Writers,
+           Object_Size => 32;
    for GPIO_STATUS_Register use record
       IRQTOPROC   at 0 range 26 .. 26;
       INFROMPAD   at 0 range 17 .. 17;
@@ -30,7 +31,8 @@ is
    end record
       with Volatile_Full_Access,
            Effective_Writes,
-           Async_Readers;
+           Async_Readers,
+           Object_Size => 32;
    for GPIO_CTRL_Register use record
       IRQOVER  at 0 range 28 .. 29;
       INOVER   at 0 range 16 .. 17;
