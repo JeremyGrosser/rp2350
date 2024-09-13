@@ -11,6 +11,7 @@ with RP2350.PADS_BANK;
 with RP2350.XOSC;
 with RP2350.I2C;
 with RP2350.WATCHDOG;
+with RP2350.POWMAN;
 with System;
 
 package RP2350.Device
@@ -34,4 +35,6 @@ is
       with Import, Address => System'To_Address (16#4009_8000#);
    WATCHDOG : RP2350.WATCHDOG.WATCHDOG_Peripheral
       with Import, Address => System'To_Address (16#400D_8000#);
+   POWMAN : RP2350.POWMAN.POWMAN_Peripheral
+      with Import, Address => System'To_Address (16#4010_0000#);
 end RP2350.Device;

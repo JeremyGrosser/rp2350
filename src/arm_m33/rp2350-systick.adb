@@ -115,10 +115,12 @@ is
    end SysTick_Handler;
 
    procedure Enable is
+      TENMS : UInt24;
    begin
       SYST.CSR.ENABLE := False;
       SYST.CSR.CLKSOURCE := True;
-      SYST.RVR.VALUE := SYST.CALIB.TENMS;
+      TENMS := SYST.CALIB.TENMS;
+      SYST.RVR.VALUE := TENMS;
       SYST.CVR.VALUE := 0;
       SYST.CSR.TICKINT := True;
       SYST.CSR.ENABLE := True;
