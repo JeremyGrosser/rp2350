@@ -140,6 +140,8 @@ is
       CLR_STOP_DET   : UInt32;
       RAW_INTR_STAT  : INTR_Register;
       ENABLE         : ENABLE_Register;
+      TXFLR          : UInt32;
+      RXFLR          : UInt32;
       SDA_HOLD       : SDA_HOLD_Register;
       TX_ABRT_SOURCE : UInt32;
       FS_SPKLEN      : UInt32 := 16#07#;
@@ -155,6 +157,8 @@ is
       CLR_TX_ABRT    at 16#54# range 0 .. 31;
       CLR_STOP_DET   at 16#60# range 0 .. 31;
       ENABLE         at 16#6C# range 0 .. 31;
+      TXFLR          at 16#74# range 0 .. 31;
+      RXFLR          at 16#78# range 0 .. 31;
       SDA_HOLD       at 16#7C# range 0 .. 31;
       TX_ABRT_SOURCE at 16#80# range 0 .. 31;
       FS_SPKLEN      at 16#A0# range 0 .. 31;

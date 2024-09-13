@@ -34,4 +34,10 @@ is
        Data  : UInt8_Array;
        Error : out Boolean;
        Stop  : Boolean := True);
+
+   procedure Read
+      (Addr  : UInt7;
+       Data  : out UInt8_Array;
+       Error : out Boolean;
+       Stop  : Boolean := True);
 end RP2350.Drivers.I2C;

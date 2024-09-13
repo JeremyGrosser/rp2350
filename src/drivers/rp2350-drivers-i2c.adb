@@ -120,4 +120,50 @@ is
       Restart_On_Next := not Stop;
       Error := TX_Abort;
    end Write;
+
+   procedure Read
+      (Addr  : UInt7;
+       Data  : out UInt8_Array;
+       Error : out Boolean;
+       Stop  : Boolean := True)
+   is
+      TX_BUFFER_DEPTH : constant := 16;
+      Timeout      : Boolean;
+      Read_Clear   : UInt32 with Unreferenced;
+      RX_Abort     : Boolean;
+      TXFLR, RXFLR : UInt32;
+   begin
+      Periph.ENABLE.ENABLE := False;
+      Periph.TAR := (TAR => UInt10 (Addr), others => <>);
+      Periph.ENABLE.ENABLE := True;
+
+      for I in Data'Range loop
+         loop
+            TXFLR := Periph.TXFLR;
+            exit when (TX_BUFFER_DEPTH - TXFLR) > 0;
+         end loop;
+
+         Periph.DATA_CMD :=
+            (RESTART => Restart_On_Next,
+             STOP    => (I = Data'Last) and then Stop,
+             CMD     => True,
+             others  => <>);
+
+         loop
+            --  Abort_Reason := Periph.TX_ABRT_SOURCE;
+            Read_Clear := Periph.CLR_TX_ABRT;
+            Timeout := Time_Exceeded;
+            RX_Abort := Timeout;
+            RXFLR := Periph.RXFLR;
+            exit when not RX_Abort and then RXFLR > 0;
+         end loop;
+
+         exit when RX_Abort;
+
+         Data (I) := Periph.DATA_CMD.DAT;
+      end loop;
+
+      Restart_On_Next := not Stop;
+      Error := RX_Abort;
+   end Read;
 end RP2350.Drivers.I2C;
