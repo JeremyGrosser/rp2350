@@ -130,12 +130,14 @@ is
       TX_BUFFER_DEPTH : constant := 16;
       Timeout      : Boolean;
       Read_Clear   : UInt32 with Unreferenced;
-      RX_Abort     : Boolean;
+      RX_Abort     : Boolean := False;
       TXFLR, RXFLR : UInt32;
    begin
       Periph.ENABLE.ENABLE := False;
       Periph.TAR := (TAR => UInt10 (Addr), others => <>);
       Periph.ENABLE.ENABLE := True;
+
+      Data := (others => 0);
 
       for I in Data'Range loop
          loop
