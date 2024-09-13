@@ -90,7 +90,7 @@ is
             if TX_Abort or else ((I = Data'Last) and then Stop) then
                loop
                   Timeout := Time_Exceeded;
-                  TX_Abort := Timeout;
+                  TX_Abort := TX_Abort or else Timeout;
                   STOP_DET := Periph.RAW_INTR_STAT.STOP_DET;
                   exit when Timeout or else STOP_DET;
                end loop;
@@ -132,6 +132,7 @@ is
       Read_Clear   : UInt32 with Unreferenced;
       RX_Abort     : Boolean := False;
       TXFLR, RXFLR : UInt32;
+      TX_ABRT_SOURCE : UInt32;
    begin
       Periph.ENABLE.ENABLE := False;
       Periph.TAR := (TAR => UInt10 (Addr), others => <>);
@@ -152,12 +153,15 @@ is
              others  => <>);
 
          loop
-            --  Abort_Reason := Periph.TX_ABRT_SOURCE;
-            Read_Clear := Periph.CLR_TX_ABRT;
+            TX_ABRT_SOURCE := Periph.TX_ABRT_SOURCE;
+            if TX_ABRT_SOURCE > 0 then
+               Read_Clear := Periph.CLR_TX_ABRT;
+               RX_Abort := True;
+            end if;
             Timeout := Time_Exceeded;
-            RX_Abort := Timeout;
+            RX_Abort := RX_Abort or else Timeout;
             RXFLR := Periph.RXFLR;
-            exit when not RX_Abort and then RXFLR > 0;
+            exit when RX_Abort or else RXFLR > 0;
          end loop;
 
          exit when RX_Abort;
