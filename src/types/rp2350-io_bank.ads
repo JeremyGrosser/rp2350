@@ -51,7 +51,8 @@ is
       CTRL   at 4 range 0 .. 31;
    end record;
 
-   type GPIO_Array is array (0 .. 47) of GPIO_Register
+   type GPIO_Index is range 0 .. 47;
+   type GPIO_Array is array (GPIO_Index) of GPIO_Register
       with Component_Size => 64;
 
    type INT_Type is (LEVEL_LOW, LEVEL_HIGH, EDGE_LOW, EDGE_HIGH);

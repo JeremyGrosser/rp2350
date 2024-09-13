@@ -12,6 +12,7 @@ project Rp2350 is
 
    for Source_Dirs use (
       "src/types/",
+      "src/drivers/",
       "src/" & RP2350_Config.Target_Arch & "/",
       BOOT2_PATH,
       "config/"

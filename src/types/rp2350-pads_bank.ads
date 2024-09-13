@@ -28,12 +28,13 @@ is
       SLEWFAST at 0 range 0 .. 0;
    end record;
 
-   type PADS_BANK_GPIO_Array is array (0 .. 47) of GPIO_Register
+   type GPIO_Index is range 0 .. 47;
+   type GPIO_Array is array (GPIO_Index) of GPIO_Register
       with Component_Size => 32;
 
    type PADS_BANK_Peripheral is record
       VOLTAGE_SELECT : UInt32;
-      GPIO           : PADS_BANK_GPIO_Array;
+      GPIO           : GPIO_Array;
       SWCLK          : GPIO_Register;
       SWD            : GPIO_Register;
    end record
