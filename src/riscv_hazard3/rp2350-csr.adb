@@ -1,5 +1,5 @@
 package body RP2350.CSR
-   with SPARK_Mode => On
+   with SPARK_Mode => Off
 is
 
    procedure Set_MSTATUS

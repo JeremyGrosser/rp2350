@@ -35,7 +35,7 @@ is
    end record;
 
    type M_Register is record
-      ME, SE, MT, ST, MS, SS : Boolean;
+      ME, SE, MT, ST, MS, SS : Boolean := False;
    end record
       with Object_Size => 32;
    for M_Register use record

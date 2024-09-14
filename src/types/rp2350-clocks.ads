@@ -1,3 +1,4 @@
+pragma Style_Checks ("M120");
 package RP2350.CLOCKS
    with Pure, SPARK_Mode => On
 is

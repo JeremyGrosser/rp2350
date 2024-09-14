@@ -35,3 +35,6 @@ release.optimization = ["-Os", "-gnatn2", "-gnatp"]
 #[[actions]]
 #type = "post-build"
 #command = ["picotool", "uf2", "convert", "bin/test_riscv", "-t", "elf", "bin/test_riscv.uf2"]
+
+[[depends-on]]
+gnatprove = "^14.1.1"
