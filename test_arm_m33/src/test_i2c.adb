@@ -6,7 +6,9 @@ with RP2350.Drivers.I2C;
 with RP2350.RESETS;
 with RP2350; use RP2350;
 
-package body Test_I2C is
+package body Test_I2C
+   with SPARK_Mode => On
+is
 
    SCL : constant := 14;
    SDA : constant := 15;

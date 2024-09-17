@@ -1,6 +1,8 @@
 with Ada.Text_IO;
 
-package body Assertions is
+package body Assertions
+   with SPARK_Mode => On
+is
    procedure Assert
       (Val : Boolean;
        Msg : String)
