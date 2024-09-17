@@ -14,7 +14,8 @@ project Test is
 
    package Compiler is
       for Default_Switches ("Ada") use Test_Config.Ada_Compiler_Switches & (
-         "-fstack-usage"
+         "-fstack-usage",
+         "-fdump-scos"
       );
       for Local_Configuration_Pragmas use "gnat.adc";
    end Compiler;

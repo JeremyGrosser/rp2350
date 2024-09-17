@@ -3,7 +3,7 @@
 --
 --  SPDX-License-Identifier: BSD-3-Clause
 --
-with System.Machine_Code;
+with RP2350.ARM;
 with System;
 
 package body RP2350.SysTick
@@ -91,15 +91,12 @@ is
    procedure Delay_Until
       (T : Time)
    is
-      pragma SPARK_Mode (Off);
       Now : Time;
    begin
       loop
          Now := Ticks;
          exit when Now >= T;
-         System.Machine_Code.Asm ("dsb", Volatile => True);
-         System.Machine_Code.Asm ("isb", Volatile => True);
-         System.Machine_Code.Asm ("wfi", Volatile => True);
+         RP2350.ARM.Wait_For_Interrupt;
       end loop;
    end Delay_Until;
 

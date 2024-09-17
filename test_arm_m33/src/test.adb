@@ -12,12 +12,15 @@ with RP2350.SysTick;
 with RP2350.Interrupts;
 with Interrupts;
 with Test_Pins; use Test_Pins;
+with Ada.Text_IO;
 
 procedure Test is
    package Timer renames RP2350.SysTick;
    use type Timer.Time;
    T : Timer.Time;
 begin
+   Ada.Text_IO.Put_Line ("Testing...");
+
    IO_BANK0.GPIO (LED).CTRL.FUNCSEL := 5;
    IO_BANK0.GPIO (Signal_In).CTRL.FUNCSEL := 5;
 
@@ -34,12 +37,11 @@ begin
 
    Timer.Enable;
    Timer.Get_Clock (T);
-   loop
-      if Interrupts.Is_Triggered then
-         SIO.GPIO_OUT_XOR := LED_Mask;
-         Interrupts.Reset;
-      end if;
-      T := T + Timer.Milliseconds (100);
-      Timer.Delay_Until (T);
-   end loop;
+   SIO.GPIO_OUT_XOR := LED_Mask;
+   T := T + Timer.Milliseconds (10);
+   Timer.Delay_Until (T);
+   SIO.GPIO_OUT_XOR := LED_Mask;
+   Timer.Disable;
+
+   Ada.Text_IO.Put_Line ("OK");
 end Test;

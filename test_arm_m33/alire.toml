@@ -25,3 +25,6 @@ command = ["gnatprove", "--mode=all", "--warnings=off", "--output-header"]
 
 [build-profiles]
 "*" = "validation"
+
+[[depends-on]]
+gnatcov = "^22.0.1"

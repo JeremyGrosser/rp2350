@@ -7,6 +7,7 @@ package RP2350
    with Pure, SPARK_Mode => On
 is
    type UInt2 is mod 2 ** 2 with Size => 2;
+   type UInt3 is mod 2 ** 3 with Size => 3;
    type UInt5 is mod 2 ** 5 with Size => 5;
    type UInt7 is mod 2 ** 7 with Size => 7;
    type UInt8 is mod 2 ** 8 with Size => 8;
@@ -20,6 +21,8 @@ is
    type UInt8_Array is array (Natural range <>) of UInt8
       with Component_Size => 8;
 
+   function Shift_Left (Item : UInt32; Amount : Natural) return UInt32
+      with Import, Convention => Intrinsic;
    function Shift_Left (Item : UInt64; Amount : Natural) return UInt64
       with Import, Convention => Intrinsic;
 end RP2350;
