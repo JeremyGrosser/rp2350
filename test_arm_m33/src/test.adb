@@ -14,6 +14,8 @@ with Interrupts;
 with Test_Pins; use Test_Pins;
 with Ada.Text_IO;
 
+with Test_I2C;
+
 procedure Test is
    package Timer renames RP2350.SysTick;
    use type Timer.Time;
@@ -36,6 +38,9 @@ begin
    NVIC.ISER (RP2350.Interrupts.IO_IRQ_BANK0) := True;
 
    Timer.Enable;
+
+   Test_I2C.Run;
+
    Timer.Get_Clock (T);
    SIO.GPIO_OUT_XOR := LED_Mask;
    T := T + Timer.Milliseconds (10);
