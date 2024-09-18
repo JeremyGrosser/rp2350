@@ -130,14 +130,21 @@ is
       SDA_TX_HOLD at 0 range 0 .. 15;
    end record;
 
+   type CLR_Register is mod 2 ** 32
+      with Volatile_Full_Access,
+           Effective_Reads,
+           Async_Writers,
+           Async_Readers,
+           Object_Size => 32;
+
    type I2C_Peripheral is record
       CON            : CON_Register;
       TAR            : TAR_Register;
       DATA_CMD       : DATA_CMD_Register;
       FS_SCL_LCNT    : UInt32 := 16#002F#;
       FS_SCL_HCNT    : UInt32 := 16#0006#;
-      CLR_TX_ABRT    : UInt32;
-      CLR_STOP_DET   : UInt32;
+      CLR_TX_ABRT    : CLR_Register;
+      CLR_STOP_DET   : CLR_Register;
       RAW_INTR_STAT  : INTR_Register;
       ENABLE         : ENABLE_Register;
       TXFLR          : UInt32;

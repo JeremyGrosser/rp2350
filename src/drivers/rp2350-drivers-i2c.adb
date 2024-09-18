@@ -4,6 +4,8 @@ package body RP2350.Drivers.I2C
    with SPARK_Mode => On
 is
    Restart_On_Next : Boolean := False;
+   Read_Clear : RP2350.I2C.CLR_Register
+      with Volatile;
 
    procedure Initialize
       (Speed   : I2C_Speed := Standard;
@@ -59,7 +61,6 @@ is
    is
       TX_EMPTY, STOP_DET : Boolean;
       TX_ABRT_SOURCE : UInt32;
-      Read_Clear : UInt32 with Unreferenced; --  with Volatile;
       Timeout, TX_Abort : Boolean := False;
    begin
       Periph.ENABLE.ENABLE := False;
@@ -104,19 +105,6 @@ is
          exit when TX_Abort;
       end loop;
 
-      --  if TX_Abort then
-      --     if Timeout then
-      --        Status := Error_Timeout;
-      --     elsif Abort_Reason.ABRT_7B_ADDR_NOACK then
-      --        Status := Error_Bus;
-      --        --  nothing connected?
-      --     elsif Abort_Reason.ABRT_TXDATA_NOACK then
-      --        Status := Error_Partial_Transmit;
-      --     else
-      --        Status := Error_Generic;
-      --     end if;
-      --  end if;
-
       Restart_On_Next := not Stop;
       Error := TX_Abort;
    end Write;
@@ -129,7 +117,6 @@ is
    is
       TX_BUFFER_DEPTH : constant := 16;
       Timeout      : Boolean;
-      Read_Clear   : UInt32 with Unreferenced;
       RX_Abort     : Boolean := False;
       TXFLR, RXFLR : UInt32;
       TX_ABRT_SOURCE : UInt32;
