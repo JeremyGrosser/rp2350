@@ -158,31 +158,31 @@ is
    begin
       SysTick.Enable;
 
-      Ada.Text_IO.Put ("Test_I2C Speed Standard ");
+      Ada.Text_IO.Put ("Speed Standard ");
       BME_Query (I2C.Standard);
       Ada.Text_IO.New_Line;
 
-      Ada.Text_IO.Put ("Test_I2C Speed Fast ");
+      Ada.Text_IO.Put ("Speed Fast ");
       BME_Query (I2C.Fast);
       Ada.Text_IO.New_Line;
 
-      Ada.Text_IO.Put ("Test_I2C Speed High ");
+      Ada.Text_IO.Put ("Speed High ");
       BME_Query (I2C.High);
       Ada.Text_IO.New_Line;
 
-      Ada.Text_IO.Put ("Test_I2C Single Write ");
+      Ada.Text_IO.Put ("Single Write ");
       BME_Write;
       Ada.Text_IO.New_Line;
 
-      Ada.Text_IO.Put ("Test_I2C Timeout ");
+      Ada.Text_IO.Put ("Timeout ");
       BME_Timeout;
       Ada.Text_IO.New_Line;
 
-      Ada.Text_IO.Put ("Test_I2C Wrong Address ");
+      Ada.Text_IO.Put ("Wrong Address ");
       I2C_Wrong_Address;
       Ada.Text_IO.New_Line;
 
-      Ada.Text_IO.Put ("Test_I2C EEPROM RW ");
+      Ada.Text_IO.Put ("EEPROM RW ");
       EEPROM_RW;
       Ada.Text_IO.New_Line;
 
