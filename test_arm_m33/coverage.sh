@@ -30,7 +30,7 @@ gprbuild -P test.gpr \
     -f
 check_error "Coverage build failed"
 
-sudo openocd \
+openocd \
     -f interface/cmsis-dap.cfg \
     -c "adapter speed 5000" \
     -c "set _USE_CORE 0" \

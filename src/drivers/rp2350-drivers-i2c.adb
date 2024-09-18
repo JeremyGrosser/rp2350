@@ -68,7 +68,7 @@ is
 
       for I in Data'Range loop
          Periph.DATA_CMD :=
-            (RESTART => Restart_On_Next,
+            (RESTART => (I = Data'First) and then Restart_On_Next,
              STOP    => (I = Data'Last) and then Stop,
              DAT     => Data (I),
              others  => <>);
@@ -147,7 +147,7 @@ is
          end loop;
 
          Periph.DATA_CMD :=
-            (RESTART => Restart_On_Next,
+            (RESTART => (I = Data'First) and then Restart_On_Next,
              STOP    => (I = Data'Last) and then Stop,
              CMD     => True,
              others  => <>);

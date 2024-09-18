@@ -28,3 +28,6 @@ command = ["gnatprove", "--mode=all", "--warnings=off", "--output-header"]
 
 [[depends-on]]
 gnatcov = "^22.0.1"
+
+[[depends-on]]
+hex_format = "~0.1.0"

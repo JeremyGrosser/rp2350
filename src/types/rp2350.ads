@@ -21,6 +21,19 @@ is
    type UInt8_Array is array (Natural range <>) of UInt8
       with Component_Size => 8;
 
+   function Shift_Right (Item : UInt8; Amount : Natural) return UInt8
+      with Import, Convention => Intrinsic;
+   function Shift_Right (Item : UInt16; Amount : Natural) return UInt16
+      with Import, Convention => Intrinsic;
+   function Shift_Right (Item : UInt32; Amount : Natural) return UInt32
+      with Import, Convention => Intrinsic;
+   function Shift_Right (Item : UInt64; Amount : Natural) return UInt64
+      with Import, Convention => Intrinsic;
+
+   function Shift_Left (Item : UInt8; Amount : Natural) return UInt8
+      with Import, Convention => Intrinsic;
+   function Shift_Left (Item : UInt16; Amount : Natural) return UInt16
+      with Import, Convention => Intrinsic;
    function Shift_Left (Item : UInt32; Amount : Natural) return UInt32
       with Import, Convention => Intrinsic;
    function Shift_Left (Item : UInt64; Amount : Natural) return UInt64
