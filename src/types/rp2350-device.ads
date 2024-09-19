@@ -9,6 +9,7 @@ with RP2350.RESETS;
 with RP2350.IO_BANK;
 with RP2350.PADS_BANK;
 with RP2350.XOSC;
+with RP2350.SPI;
 with RP2350.I2C;
 with RP2350.WATCHDOG;
 with RP2350.POWMAN;
@@ -29,6 +30,10 @@ is
       with Import, Address => System'To_Address (16#4003_8000#);
    XOSC : RP2350.XOSC.XOSC_Peripheral
       with Import, Address => System'To_Address (16#4004_8000#);
+   SPI0 : RP2350.SPI.SPI_Peripheral
+      with Import, Address => System'To_Address (16#4008_0000#);
+   SPI1 : RP2350.SPI.SPI_Peripheral
+      with Import, Address => System'To_Address (16#4008_8000#);
    I2C0 : RP2350.I2C.I2C_Peripheral
       with Import, Address => System'To_Address (16#4009_0000#);
    I2C1 : RP2350.I2C.I2C_Peripheral

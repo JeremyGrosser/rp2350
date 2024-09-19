@@ -8,6 +8,7 @@ package RP2350
 is
    type UInt2 is mod 2 ** 2 with Size => 2;
    type UInt3 is mod 2 ** 3 with Size => 3;
+   type UInt4 is mod 2 ** 4 with Size => 4;
    type UInt5 is mod 2 ** 5 with Size => 5;
    type UInt7 is mod 2 ** 7 with Size => 7;
    type UInt8 is mod 2 ** 8 with Size => 8;

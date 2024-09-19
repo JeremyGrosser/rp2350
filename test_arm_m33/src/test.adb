@@ -10,6 +10,7 @@ with Assertions;
 with RP2350.Device; use RP2350.Device;
 with Test_Pins; use Test_Pins;
 with Test_I2C;
+with Test_SPI;
 with Test_SysTick;
 
 procedure Test is
@@ -27,6 +28,10 @@ begin
    Assertions.Start ("I2C");
    Test_I2C.Run;
    Assertions.Stop ("I2C");
+
+   Assertions.Start ("SPI");
+   Test_SPI.Run;
+   Assertions.Stop ("SPI");
 
    SIO.GPIO_OUT_SET (LED) := True;
 
