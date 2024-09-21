@@ -4,7 +4,7 @@ with RP2350.IO_BANK;
 
 generic
    Periph : in out RP2350.I2C.I2C_Peripheral;
-   with function Time_Exceeded return Boolean;
+   with procedure Get_Timeout (Timeout : out Boolean);
 package RP2350.Drivers.I2C
    with Preelaborate, SPARK_Mode => On
 is

@@ -79,7 +79,8 @@ is
    SCB_ICSR : UInt32
       with Import, Address => System'To_Address (16#E000_ED04#);
 
-   Ticks : Time := 0;
+   Ticks : Time := 0
+      with Volatile;
 
    procedure Get_Clock
       (T : out Time)
@@ -106,6 +107,7 @@ is
                       Output => SCB_ICSR);
 
    procedure SysTick_Handler is
+      pragma SPARK_Mode (Off);
    begin
       Ticks := Ticks + 1;
       SCB_ICSR := SCB_ICSR_PENDSTCLR;

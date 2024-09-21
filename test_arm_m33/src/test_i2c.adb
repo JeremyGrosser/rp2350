@@ -25,18 +25,18 @@ is
 
    Deadline : SysTick.Time := SysTick.Time'First;
 
-   function I2C_Time_Exceeded
-      return Boolean
+   procedure Get_Timeout
+      (Timeout : out Boolean)
    is
       T : Time;
    begin
       Get_Clock (T);
-      return T >= Deadline;
-   end I2C_Time_Exceeded;
+      Timeout := (T >= Deadline);
+   end Get_Timeout;
 
    package I2C is new Drivers.I2C
-      (Periph        => Device.I2C1,
-       Time_Exceeded => I2C_Time_Exceeded);
+      (Periph      => Device.I2C1,
+       Get_Timeout => Get_Timeout);
 
    procedure I2C_Reset is
    begin

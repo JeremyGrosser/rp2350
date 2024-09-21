@@ -20,7 +20,7 @@ package RP2350.Device
 is
    SIO : RP2350.SIO.SIO_Peripheral
       with Import, Address => System'To_Address (16#D000_0000#);
-   CLOCKS : RP2350.CLOCKS.CLOCKS_Peripheral
+   CLOCKS : aliased RP2350.CLOCKS.CLOCKS_Peripheral
       with Import, Address => System'To_Address (16#4001_0000#);
    RESETS : RP2350.RESETS.RESET_Peripheral
       with Import, Address => System'To_Address (16#4002_0000#);

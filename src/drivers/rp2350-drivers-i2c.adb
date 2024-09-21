@@ -76,7 +76,7 @@ is
          loop
             TX_EMPTY := Periph.RAW_INTR_STAT.TX_EMPTY;
             exit when TX_EMPTY;
-            Timeout := Time_Exceeded;
+            Get_Timeout (Timeout);
             TX_Abort := Timeout;
             exit when Timeout;
          end loop;
@@ -90,7 +90,7 @@ is
 
             if TX_Abort or else ((I = Data'Last) and then Stop) then
                loop
-                  Timeout := Time_Exceeded;
+                  Get_Timeout (Timeout);
                   TX_Abort := TX_Abort or else Timeout;
                   STOP_DET := Periph.RAW_INTR_STAT.STOP_DET;
                   exit when Timeout or else STOP_DET;
@@ -145,7 +145,7 @@ is
                Read_Clear := Periph.CLR_TX_ABRT;
                RX_Abort := True;
             end if;
-            Timeout := Time_Exceeded;
+            Get_Timeout (Timeout);
             RX_Abort := RX_Abort or else Timeout;
             RXFLR := Periph.RXFLR;
             exit when RX_Abort or else RXFLR > 0;
