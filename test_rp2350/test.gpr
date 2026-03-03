@@ -1,0 +1,48 @@
+with "config/test_config.gpr";
+with "runtime_build.gpr";
+with "ravenscar_build.gpr";
+with "rp2350.gpr";
+
+project Test is
+
+   for Target use Runtime_Build'Target;
+   for Runtime ("Ada") use Runtime_Build'Runtime ("Ada");
+
+   for Source_Dirs use ("src/", "config/");
+   for Object_Dir use "obj/" & Test_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
+   for Exec_Dir use "bin";
+   for Main use ("test.adb");
+
+   package Compiler is
+      for Default_Switches ("Ada") use Test_Config.Ada_Compiler_Switches & (
+         "-fstack-usage",
+         "-fdump-scos"
+      );
+      for Local_Configuration_Pragmas use "gnat.adc";
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+   package Install is
+      for Artifacts (".") use ("share");
+   end Install;
+
+   Extra_Linker_Switches := ();
+   case Test_Config.Build_Profile is
+      when "release" =>
+         Extra_Linker_Switches := ("-Wl,-gc-sections");
+      when others =>
+         null;
+   end case;
+
+   package Linker is
+      for Switches ("Ada") use Runtime_Build.Linker_Switches & (
+         "-Wl,-print-memory-usage",
+         "-Wl,-Map=test.map"
+      ) & Extra_Linker_Switches;
+   end Linker;
+
+end Test;

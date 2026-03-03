@@ -1,0 +1,28 @@
+name = "test_rp2040"
+description = ""
+version = "0.1.0-dev"
+
+authors = ["Jeremy Grosser"]
+maintainers = ["Jeremy Grosser <jeremy@synack.me>"]
+maintainers-logins = ["JeremyGrosser"]
+licenses = "BSD-3-Clause"
+website = ""
+tags = []
+
+executables = ["test_rp2040"]
+
+[[depends-on]]
+light_tasking_rp2040 = "*"
+
+[configuration.values]
+light_tasking_rp2040.Board = "rpi_pico"
+
+[[depends-on]]
+rp2350 = "*"
+
+[[pins]]
+rp2350 = { path='..' }
+
+[build-switches]
+release.optimization = ["-mcpu=cortex-m0plus", "-Os"]
+development.optimization = ["-Og", "-g"]

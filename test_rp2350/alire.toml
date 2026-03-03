@@ -1,0 +1,30 @@
+name = "test"
+description = ""
+version = "0.1.0-dev"
+
+authors = ["Jeremy Grosser"]
+maintainers = ["Jeremy Grosser <jeremy@synack.me>"]
+maintainers-logins = ["JeremyGrosser"]
+licenses = "BSD-3-Clause"
+website = ""
+tags = []
+
+executables = ["test"]
+
+[[depends-on]]
+gnat_arm_elf = "*"
+gnatprove = "*"
+rp2350 = "*"
+gnatcov = "^22.0.1"
+hex_format = "~0.1.0"
+light_tasking_rp2350 = "*"
+
+[[pins]]
+rp2350 = { path='..' }
+
+[[actions]]
+type = "post-build"
+command = ["gnatprove", "-U", "RP2350", "-U", "Test_I2C", "-U", "Test_SPI", "-U", "Test_Pins", "--mode=all", "--warnings=off", "--output-header"]
+
+[build-profiles]
+"*" = "validation"
